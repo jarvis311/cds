@@ -1,5 +1,6 @@
 import express from "express";
 import { Authenticat, CategoriesAdd, CategoriesAll, CategoriesAllId, CategoriesDelete, CategoriesSearch, CategoriesStatusUpdate, CategoriesUpdate, CategoriesView, Login, Logout, ReelsAdd, ReelsAll, ReelsDelete, ReelsEdit, ReelsSearch, ReelsStatusUpdate, ReelsUpdate, ReelsView, RegisterUpdate, Registers } from "../controller/web.js";
+import { createCelebrityVoice, deleteCelebrityVoice, getCelebrityVoice, getCelebrityVoiceById, updateCelebrityVoice } from "../controller/celebrityVoice.js";
 const router = express.Router()
 
 /* Categories Module */
@@ -36,5 +37,15 @@ router.post('/login', Login)
 router.post('/logout', Authenticat, Logout)
 
 /* End User Module */
+
+/* Celebrity Voice Module start by jignesh patel */
+router.post("/celebrity-voice/add", createCelebrityVoice)
+router.post("/celebrity-voice/updtae", updateCelebrityVoice)
+router.post("/celebrity-voice/get", getCelebrityVoice)
+router.post("/celebrity-voice/delete", deleteCelebrityVoice)
+router.post("/celebrity-voice/viwe", getCelebrityVoiceById)
+
+/*End Of Celebrity Voice Module */
+
 
 export default router

@@ -1,15 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Card, Col, Row } from "react-bootstrap";
 import Layout from '../../layout/Layout';
 import Fancybox from '../../Component/FancyBox';
 import { SelectPicker } from "rsuite";
+import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
+import { CelbrityVoiceview } from '../../Auth/Api';
 
 const data = ['Eugenia', 'Bryan', 'Linda', 'Nancy', 'Lloyd', 'Alice', 'Julia', 'Albert'].map(
     item => ({ label: item, value: item })
 );
 
 const CelebrityVoiceView = () => {
+    const Redirect = useNavigate()
+    const [Data, SetData] = useState([])
+    const [loading, Setloading] = useState(true)
+    const [ViewSearchData, SetViewSearchData] = useState([])
+    const params = useParams()
+    const [mainId, setmainId] = useState(params.id)
+
+    const GetViewData = async (ids) => {
+        console.log('mainId >>>>>>>>>>>', mainId)
+        const Result = await CelbrityVoiceview(mainId)
+        if (Result.data.Status === true) {
+            SetData(Result.data.Data)
+            Setloading(false)
+        }
+        else {
+            SetData([])
+            Setloading(false)
+        }
+    }
+    console.log('Data ---->>>>', Data)
+
+    useEffect(() => {
+        GetViewData("")
+        // GetAllData()
+    }, [])
     return (
         <Layout sidebar={true}>
             <div className="page-heading">

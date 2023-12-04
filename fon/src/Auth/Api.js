@@ -251,3 +251,39 @@ export const ReelsSearch = async (name) => {
         return CatchError(error)
     }
 }
+
+
+export const GetAllCelbrityVoice = async (data) => {
+    try {
+        const Response = await axios.post('/celebrity-voice/get')
+        return Response
+    } catch (error) {
+        return CatchError(error)
+    }
+}
+
+export const AddCelbrityVoice = async (data) => {
+    try {
+        console.log(data)
+        const Form = new FormData()
+        Form.append('name', data.name)
+        Form.append('thumb_image_url', data.thumb_image_url)
+        Form.append('premium_status', data.premium_status)
+        Form.append('reward_status', data.reward_status)
+        Form.append('status', data.status)
+        const Result = await axios.post('/celebrity-voice/add', Form)
+        return Result
+
+    } catch (error) {
+        return CatchError(error)
+    }
+}
+
+export const CelbrityVoiceview = async (id) => {
+    try {
+        const Result = await axios.post('/celebrity-voice/view', {_id:id})
+        return Result
+    } catch (error) {
+        return CatchError(error)
+    }
+}

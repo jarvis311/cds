@@ -31,11 +31,11 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { ToastContainer } from 'react-toastify';
 import Error from './pages/Error/Error';
-
+let token = 'dskjkjn'
 function App() {
-    axios.defaults.baseURL = process.env.REACT_APP_API_LINK
+    axios.defaults.baseURL = "http://localhost:2020/"
     const ProtectedRoute = ({ redirectPath = "/" }) => {
-        if (!Cookies.get('jwt-VoiceChanger')) {
+        if (!token) {
             return <Navigate to={redirectPath} replace />
         }
         else {
@@ -45,7 +45,7 @@ function App() {
     }
 
     const PrivateRoute = ({ redirectPath = "/Home" }) => {
-        if (!Cookies.get('jwt-VoiceChanger')) {
+        if (!token) {
             return <Outlet />
 
         }
@@ -76,8 +76,8 @@ function App() {
 
                         <Route path="/Celebrity-Voice" element={<CelebrityVoice />} />
                         <Route path="/Celebrity-Voice/Add" element={<CelebrityVoiceAdd />} />
-                        <Route path="/Celebrity-Voice/Edit" element={<CelebrityVoiceAdd />} />
-                        <Route path="/Celebrity-Voice/View" element={<CelebrityVoiceView />} />
+                        <Route path="/Celebrity-Voice/Edit/:id" element={<CelebrityVoiceAdd />} />
+                        <Route path="/Celebrity-Voice/View/:id" element={<CelebrityVoiceView />} />
                     </Route>
 
                     <Route path='*' element={<Error />} />
